@@ -71,8 +71,19 @@ TODO
 
 ## Model downloaded from the internet, Bounding box infos [Width, Hight, Length]
 
-[shiba](https://sketchfab.com/3d-models/shiba-faef9fe5ace445e7b2989d1c1ece361c): [0.09, 0.13, 0.176] , [miniature_cat](https://sketchfab.com/3d-models/miniature-cat-7aabffe566ef462db6d1cd6a6dd46345)[0.08, 0.38, 0.43], [FerBibliotecario](https://sketchfab.com/3d-models/ferbibliotecario-ff3847432b914969aeba66bcc2adc657):[0.54, 1.28, 0.24], [angry_girl](https://sketchfab.com/3d-models/redhead-rock-girl-1a056adab45f462fa75863701439356f): [0.48, 1.13, 0.318], [robot_2020](https://sketchfab.com/3d-models/robot-2020-c0dadae4d1884bf48615f1ee301fe7e6)[0.68, 0.62, 0.41], [toy_car](https://sketchfab.com/3d-models/toy-car-9cf99655e7424770b79ba702fe83e5c1): [0.060, 0.077, 0.156]
+[shiba](https://sketchfab.com/3d-models/shiba-faef9fe5ace445e7b2989d1c1ece361c): [0.360, 0.276, 0.354] , [miniature_cat](https://sketchfab.com/3d-models/miniature-cat-7aabffe566ef462db6d1cd6a6dd46345)[0.117, 0.383, 0.435], [FerBibliotecario](https://sketchfab.com/3d-models/ferbibliotecario-ff3847432b914969aeba66bcc2adc657):[0.534, 1.288, 0.243], [angry_girl](https://sketchfab.com/3d-models/redhead-rock-girl-1a056adab45f462fa75863701439356f): [0.486, 1.134, 0.318], [robot_2020](https://sketchfab.com/3d-models/robot-2020-c0dadae4d1884bf48615f1ee301fe7e6)[0.684, 0.620, 0.418], [toy_car](https://sketchfab.com/3d-models/toy-car-9cf99655e7424770b79ba702fe83e5c1): [0.060, 0.077, 0.156]
 
+物体bbox：
+[身体宽度范围， 身体高度范围，身体厚度范围]
+
+shiba
+bbox of obj is : Range({-0.460449, -0.690521, -0.887387}, {0.460449, 0.690521, 0.887387})
+center of obj:  Vector(0, 0, 0)
+scale of object is: 0.2
+toy_car
+bbox of obj is : Range({-0.301049, -0.387497, -0.781166}, {0.301049, 0.387497, 0.781166})
+center of obj:  Vector(0, 0, 0)
+scale of object is:  0.2
 
 ## Disclaimer
 
