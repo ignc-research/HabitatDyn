@@ -1,4 +1,4 @@
-# HabitatDyn Dataset: Dynamic Object Detection to Kinematics Estimation (The Repo is still under construction Updated 11.04.2023)
+# HabitatDyn Dataset: Dynamic Object Detection to Kinematics Estimation (The Repo is still under construction)
 
 ***Zhengcheng Shen, Yi Gao, Linh Kästner, Jens Lambrecht***
 
