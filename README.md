@@ -62,14 +62,17 @@ Email Format
 
 
 ## Citation
+
 Please cite [HabitatDyn](TODO) dataset in your publications if it helps your research:
 
 ```latex
 TODO
 ```
 
-## Model downloaded from the internet
-[shiba](https://sketchfab.com/3d-models/shiba-faef9fe5ace445e7b2989d1c1ece361c), [miniature_cat](https://sketchfab.com/3d-models/miniature-cat-7aabffe566ef462db6d1cd6a6dd46345), [FerBibliotecario](https://sketchfab.com/3d-models/ferbibliotecario-ff3847432b914969aeba66bcc2adc657), [angry_girl](https://sketchfab.com/3d-models/redhead-rock-girl-1a056adab45f462fa75863701439356f), [robot_2020](https://sketchfab.com/3d-models/robot-2020-c0dadae4d1884bf48615f1ee301fe7e6), [toy_car](https://sketchfab.com/3d-models/toy-car-9cf99655e7424770b79ba702fe83e5c1)
+## Model downloaded from the internet, Bounding box infos [Width, Hight, Length]
+
+[shiba](https://sketchfab.com/3d-models/shiba-faef9fe5ace445e7b2989d1c1ece361c): [0.09, 0.13, 0.176] , [miniature_cat](https://sketchfab.com/3d-models/miniature-cat-7aabffe566ef462db6d1cd6a6dd46345)[0.08, 0.38, 0.43], [FerBibliotecario](https://sketchfab.com/3d-models/ferbibliotecario-ff3847432b914969aeba66bcc2adc657):[0.54, 1.28, 0.24], [angry_girl](https://sketchfab.com/3d-models/redhead-rock-girl-1a056adab45f462fa75863701439356f): [0.48, 1.13, 0.318], [robot_2020](https://sketchfab.com/3d-models/robot-2020-c0dadae4d1884bf48615f1ee301fe7e6)[0.68, 0.62, 0.41], [toy_car](https://sketchfab.com/3d-models/toy-car-9cf99655e7424770b79ba702fe83e5c1): [0.060, 0.077, 0.156]
+
 
 ## Disclaimer
 
@@ -79,11 +82,24 @@ Furthermore, the dataset is provided "as is" without warranty of any kind, expre
 
 HabitatDyn is free for academic, non-commercial research. It is important to exercise caution and undertake appropriate due diligence before using this dataset for any research. Users should also acknowledge the sources of the 3D models and the simulator in any publications or presentations that make use of this dataset.
 
+
+## Reference citation
+
 ```latex
 @inproceedings{szot2021habitat,
   title     =     {Habitat 2.0: Training Home Assistants to Rearrange their Habitat},
   author    =     {Andrew Szot and Alex Clegg and Eric Undersander and Erik Wijmans and Yili Zhao and John Turner and Noah Maestre and Mustafa Mukadam and Devendra Chaplot and Oleksandr Maksymets and Aaron Gokaslan and Vladimir Vondrus and Sameer Dharur and Franziska Meier and Wojciech Galuba and Angel Chang and Zsolt Kira and Vladlen Koltun and Jitendra Malik and Manolis Savva and Dhruv Batra},
   booktitle =     {Advances in Neural Information Processing Systems (NeurIPS)},
   year      =     {2021}
+}
+```
+
+```latex
+@inproceedings{ramakrishnan2021hm3d,
+  title={Habitat-Matterport 3D Dataset ({HM}3D): 1000 Large-scale 3D Environments for Embodied {AI}},
+  author={Santhosh Kumar Ramakrishnan and Aaron Gokaslan and Erik Wijmans and Oleksandr Maksymets and Alexander Clegg and John M Turner and Eric Undersander and Wojciech Galuba and Andrew Westbury and Angel X Chang and Manolis Savva and Yili Zhao and Dhruv Batra},
+  booktitle={Thirty-fifth Conference on Neural Information Processing Systems Datasets and Benchmarks Track (Round 2)},
+  year={2021},
+  url={https://openreview.net/forum?id=-v4OuqNs5P}
 }
 ```
