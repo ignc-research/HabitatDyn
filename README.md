@@ -21,6 +21,19 @@ Additionally, the objects in each scene have been carefully programmed to move a
 
 Furthermore, the same settings for 3 randomly chosen instances from the 6 models are also generated, making this dataset a comprehensive and versatile resource for researchers in various fields.
 
+In the entirety of the video recording, data pertaining to the physical properties such as the specifications of the camera, as well as the positional information of both the camera itself and any pedestrians or moving objects present within the recording are documented.
+
+### Annotations 
+
+overview of annotations format
+
+| - | images | semantic mask | depth | camera infos | pedstrains/moving object infos | semanticID to model name | videoID to descriptive name mapping | video |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| format | .jpg | .png | .png | .npy | .npy | .json | .txt| .mp4 |
+
+The mp4 videos has a frame rate of 24 fps.
+
+
 ### Depth
 
 
