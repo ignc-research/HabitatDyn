@@ -47,7 +47,6 @@ https://user-images.githubusercontent.com/83227264/230932486-90f0ff66-409c-4d55-
 
 ## Download
 
-The train set, the test set and a sample of the CeyMo road marking dataset can be downloaded from the following Google Drive links.
 A subset for 2 scenes with only dynamic moving objects can be downloaded from the following link
 * [subset for 2 scenes](https://tubcloud.tu-berlin.de/s/KikfymcmENWSdjk) - 108 videos (12 GB)
 
@@ -79,3 +78,12 @@ Please note that this dataset contains 3D models that were freely downloaded fro
 Furthermore, the dataset is provided "as is" without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the dataset or the use or other dealings in the dataset.
 
 HabitatDyn is free for academic, non-commercial research. It is important to exercise caution and undertake appropriate due diligence before using this dataset for any research. Users should also acknowledge the sources of the 3D models and the simulator in any publications or presentations that make use of this dataset.
+
+```latex
+@inproceedings{szot2021habitat,
+  title     =     {Habitat 2.0: Training Home Assistants to Rearrange their Habitat},
+  author    =     {Andrew Szot and Alex Clegg and Eric Undersander and Erik Wijmans and Yili Zhao and John Turner and Noah Maestre and Mustafa Mukadam and Devendra Chaplot and Oleksandr Maksymets and Aaron Gokaslan and Vladimir Vondrus and Sameer Dharur and Franziska Meier and Wojciech Galuba and Angel Chang and Zsolt Kira and Vladlen Koltun and Jitendra Malik and Manolis Savva and Dhruv Batra},
+  booktitle =     {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      =     {2021}
+}
+```
