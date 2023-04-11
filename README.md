@@ -24,10 +24,27 @@ Furthermore, the same settings for 3 randomly chosen instances from the 6 models
 ### Depth
 
 
-
 https://user-images.githubusercontent.com/83227264/230932486-90f0ff66-409c-4d55-a772-6c0d4aad5d0b.mp4
 
 
+## Download
+
+The train set, the test set and a sample of the CeyMo road marking dataset can be downloaded from the following Google Drive links.
+A subset for 2 scenes with only dynamic moving objects can be downloaded from the following link
+* [subset for 2 scenes](https://tubcloud.tu-berlin.de/s/KikfymcmENWSdjk) - 108 videos (12 GB)
+
+Please email Zhengcheng Shen(zhengcheng.shen@tu-berlin.de) to obtain the link for downloading the whole dataset.
+
+Email Format
+
+*Name :
+
+*Organization :
+
+*Purpose of dataset :
+
+
+### citation
 
 ```latex
 @inproceedings{szot2021habitat,
