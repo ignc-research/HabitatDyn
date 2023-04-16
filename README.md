@@ -2,9 +2,9 @@
 
 ***Zhengcheng Shen, Yi Gao, Linh Kästner, Jens Lambrecht***
 todo:
-- [] Add examples of the dataset
-- [] Add example code for evaluation
-- [] Intro for the example code
+- [ ] Add examples of the dataset
+- [ ] Add example code for evaluation
+- [ ] Intro for the example code
 
 ![data](https://user-images.githubusercontent.com/83227264/230888881-410c0266-9256-4add-a42a-d38bed991be9.jpg)
 
