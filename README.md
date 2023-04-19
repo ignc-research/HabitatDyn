@@ -2,9 +2,6 @@
 
 ***Zhengcheng Shen, Yi Gao, Linh Kästner, Jens Lambrecht***
 todo:
-- [ ] Add examples of the dataset
-- [ ] Add example code for evaluation
-- [ ] Intro for the example code
 
 ![data](https://user-images.githubusercontent.com/83227264/230888881-410c0266-9256-4add-a42a-d38bed991be9.jpg)
 
@@ -65,6 +62,25 @@ Email Format
 > *Purpose of dataset :
 
 
+## Evaluate HabitatDyn dataset using [3DC-Seg](https://github.com/sabarim/3DC-Seg) and [CIS](https://github.com/antonilo/unsupervised_detection)
+
+### [3DC-Seg](https://github.com/sabarim/3DC-Seg)
+
+Clone 3DC-Seg repository with given [instruction](https://github.com/sabarim/3DC-Seg#setup) and download the checkpoints with given [link](https://omnomnom.vision.rwth-aachen.de/data/3DC-Seg/models/bmvc_final.pth).  Run inference with your own `.yaml` file that contains the path to HabitatDyn dataset, and evaluate with:
+
+```
+python main.py -c run_configs/your_own.yaml --task eval --wts <path>/bmvc_final.pth --save_folder output/dynamic
+
+``` 
+
+### [CIS](https://github.com/antonilo/unsupervised_detection)
+Cole CIS repository with given [instruction](https://github.com/antonilo/unsupervised_detection#quick-test-the-inference-without-any-preparations), a example to download pretrained weight can be found in `/unsupervised_detection/scripts/test_DAVIS2016_raw.sh`, then make your own `.sh` file which contains the path to HabitatDyn dataset and evaluate with:
+
+```
+bash ./scripts/your_own.sh
+```
+
+
 ## Citation
 
 Please cite [HabitatDyn](TODO) dataset in your publications if it helps your research:
@@ -87,7 +103,7 @@ Furthermore, the dataset is provided "as is" without warranty of any kind, expre
 HabitatDyn is free for academic, non-commercial research. It is important to exercise caution and undertake appropriate due diligence before using this dataset for any research. Users should also acknowledge the sources of the 3D models and the simulator in any publications or presentations that make use of this dataset.
 
 
-## Reference citation
+## Acknowledgement
 
 ```latex
 @inproceedings{szot2021habitat,
@@ -105,5 +121,25 @@ HabitatDyn is free for academic, non-commercial research. It is important to exe
   booktitle={Thirty-fifth Conference on Neural Information Processing Systems Datasets and Benchmarks Track (Round 2)},
   year={2021},
   url={https://openreview.net/forum?id=-v4OuqNs5P}
+}
+```
+
+```latex
+@inproceedings{yang_loquercio_2019,
+  title={Unsupervised Moving Object Detection via Contextual Information Separation},
+  author={Yang, Yanchao and Loquercio, Antonio and Scaramuzza, Davide and Soatto, Stefano},
+  booktitle = {Conference on Computer Vision and Pattern Recognition {(CVPR)}}
+  year={2019}
+}
+```
+
+```latex
+@misc{mahadevan2020making,
+      title={Making a Case for 3D Convolutions for Object Segmentation in Videos}, 
+      author={Sabarinath Mahadevan and Ali Athar and Aljoša Ošep and Sebastian Hennen and Laura Leal-Taixé and Bastian Leibe},
+      year={2020},
+      eprint={2008.11516},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
 }
 ```
