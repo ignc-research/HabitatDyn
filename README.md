@@ -8,6 +8,14 @@ todo:
 ## Abstract
 > We propose a new dataset, HabitatDyn, which includes synthetic RGB videos, semantic labels, and depth information, as well as kinetics information. The dataset features 30 scenes from the perspective of a mobile robot with a moving camera, and contains six different types of moving objects with varying velocities.
 
+## Video examples
+
+
+
+https://user-images.githubusercontent.com/83227264/232990022-b49e04ef-3964-46c6-9b13-3466279edb6e.mp4
+
+
+
 ## Overview
 
 We use of the [Facebook AI Habitat simulation platform](https://github.com/facebookresearch/habitat-sim) as a basic set-up with embodied agents in 3D
