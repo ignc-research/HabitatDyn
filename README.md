@@ -91,7 +91,7 @@ bash ./scripts/your_own.sh
 
 ## Citation
 
-Please cite [HabitatDyn] and all the related work in your publications if it helps your research:
+Please cite [HabitatDyn] and all the related works in your publications if it helps your research:
 
 ```latex
 @misc{shen2023habitatdyn,
