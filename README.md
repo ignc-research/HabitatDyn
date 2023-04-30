@@ -91,10 +91,47 @@ bash ./scripts/your_own.sh
 
 ## Citation
 
-Please cite [HabitatDyn](TODO) dataset in your publications if it helps your research:
+Please cite [HabitatDyn] and all the related work in your publications if it helps your research:
 
 ```latex
-TODO
+@misc{shen2023habitatdyn,
+      title={HabitatDyn Dataset: Dynamic Object Detection to Kinematics Estimation}, 
+      author={Zhengcheng Shen and Yi Gao and Linh Kästner and Jens Lambrecht},
+      year={2023},
+      eprint={2304.10854},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+
+@inproceedings{szot2021habitat,
+  title     =     {Habitat 2.0: Training Home Assistants to Rearrange their Habitat},
+  author    =     {Andrew Szot and Alex Clegg and Eric Undersander and Erik Wijmans and Yili Zhao and John Turner and Noah Maestre and Mustafa Mukadam and Devendra Chaplot and Oleksandr Maksymets and Aaron Gokaslan and Vladimir Vondrus and Sameer Dharur and Franziska Meier and Wojciech Galuba and Angel Chang and Zsolt Kira and Vladlen Koltun and Jitendra Malik and Manolis Savva and Dhruv Batra},
+  booktitle =     {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      =     {2021}
+}
+@inproceedings{ramakrishnan2021hm3d,
+  title={Habitat-Matterport 3D Dataset ({HM}3D): 1000 Large-scale 3D Environments for Embodied {AI}},
+  author={Santhosh Kumar Ramakrishnan and Aaron Gokaslan and Erik Wijmans and Oleksandr Maksymets and Alexander Clegg and John M Turner and Eric Undersander and Wojciech Galuba and Andrew Westbury and Angel X Chang and Manolis Savva and Yili Zhao and Dhruv Batra},
+  booktitle={Thirty-fifth Conference on Neural Information Processing Systems Datasets and Benchmarks Track (Round 2)},
+  year={2021},
+  url={https://openreview.net/forum?id=-v4OuqNs5P}
+}
+
+@inproceedings{yang_loquercio_2019,
+  title={Unsupervised Moving Object Detection via Contextual Information Separation},
+  author={Yang, Yanchao and Loquercio, Antonio and Scaramuzza, Davide and Soatto, Stefano},
+  booktitle = {Conference on Computer Vision and Pattern Recognition {(CVPR)}}
+  year={2019}
+}
+
+@misc{mahadevan2020making,
+      title={Making a Case for 3D Convolutions for Object Segmentation in Videos}, 
+      author={Sabarinath Mahadevan and Ali Athar and Aljoša Ošep and Sebastian Hennen and Laura Leal-Taixé and Bastian Leibe},
+      year={2020},
+      eprint={2008.11516},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
 ```
 
 ## Model downloaded from the internet, Bounding box infos [Width, Hight, Length]
