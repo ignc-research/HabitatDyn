@@ -3,7 +3,7 @@
 ***Zhengcheng Shen, Yi Gao, Linh Kästner, Jens Lambrecht***
 
 ## Update
-- May 26. 2023 We provide a demo for object localization in the repo: https://github.com/ignc-research/DODL-SALOC It use the HabitatDyn Dataset.
+- May 26. 2023: We provide a demo for object localization in the repo: https://github.com/ignc-research/DODL-SALOC It use the HabitatDyn Dataset.
 
 todo:
 
