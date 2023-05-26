@@ -128,14 +128,6 @@ Please cite [HabitatDyn] and all the related works in your publications if it he
   year={2019}
 }
 
-@misc{mahadevan2020making,
-      title={Making a Case for 3D Convolutions for Object Segmentation in Videos}, 
-      author={Sabarinath Mahadevan and Ali Athar and Aljoša Ošep and Sebastian Hennen and Laura Leal-Taixé and Bastian Leibe},
-      year={2020},
-      eprint={2008.11516},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
-}
 ```
 
 ## Model downloaded from the internet, Bounding box infos [Width, Hight, Length]
