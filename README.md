@@ -1,6 +1,10 @@
 # HabitatDyn Dataset: Dynamic Object Detection to Kinematics Estimation.
 
 ***Zhengcheng Shen, Yi Gao, Linh Kästner, Jens Lambrecht***
+
+## Update
+May 26. 2023 We provide a demo for object localization in the repo: https://github.com/ignc-research/DODL-SALOC It use the HabitatDyn Dataset.
+
 todo:
 
 ![data](https://user-images.githubusercontent.com/83227264/230888881-410c0266-9256-4add-a42a-d38bed991be9.jpg)
