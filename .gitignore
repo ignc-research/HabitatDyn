@@ -1,0 +1,8 @@
+dist_eval_results/
+dist_metric_results/
+__pycache__/
+
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
