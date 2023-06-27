@@ -1,23 +1,40 @@
-import os
-from tqdm import tqdm
-from PIL import Image
 import argparse
-import torch
-import numpy as np
-from utils.metrics import *
-from torch.utils.data import Dataset
-import torch.utils.data.dataloader as dataloader
-from torch.utils.data.dataset import Dataset
-from utils.meter import AverageValueMeter
+import logging
+import os
 
+import numpy as np
+import torch
+import torch.utils.data.dataloader as dataloader
+from PIL import Image
+from torch.utils.data import Dataset
+from torch.utils.data.dataset import Dataset
+from tqdm import tqdm
+
+from utils.common import safe_mkdir
+from utils.meter import AverageValueMeter
+from utils.metrics import *
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# TODO: link parser
-parser = argparse.ArgumentParser(description='PyTorch Metrics Calculator')
-parser.add_argument('--gt_data', metavar='DIR', help='path to ground truth dataset')
-parser.add_argument('--pred_data', metavar='DIR', help='path to predicted dataset')
+parser = argparse.ArgumentParser(
+    description='PyTorch Metrics Calculator', formatter_class=argparse.RawTextHelpFormatter)
+parser.add_argument('--gt_data', metavar='DIR',
+                    help='path to ground truth dataset', required=True)
+parser.add_argument('--pred_data', metavar='DIR',
+                    help='path to predicted dataset', required=True)
+parser.add_argument('--flag', type=int, required=True,
+                    help='''which kind HabitatDyn data to do metric evalutation:
+                    flag:   0: calculate All
+                            1: calculate Single class
+                            2: calculate Multi class
+                            3: calculate Speed 1
+                            4: calculate Speed 2
+                            5: calculate Speed 3
+                            6: calculate Human classes
+                            7: calculate toy car/robot classes
+                            8: calculate dog/cat classes''')
 args = parser.parse_args()
+
 
 class MetricDataset(Dataset):
     """A dataset to load gt_data and pred_data
@@ -30,12 +47,12 @@ class MetricDataset(Dataset):
                 4: calculate speed 2
                 5: calculate speed 3
     """
+
     def __init__(self, pred_data, gt_data, flag):
         self.pred_data = pred_data
         self.gt_data = gt_data
         self.flag = flag
         self.data = []
-        print("flag:", flag)
 
         if flag == 0:
             self.scene_names = self.load_all()
@@ -57,7 +74,8 @@ class MetricDataset(Dataset):
             self.scene_names = self.load_dog_cat_class()
 
         for scene_name in self.scene_names:
-            gt_folder = os.path.join(self.gt_data,'habitat_sim_DAVIS/Annotations/480p', scene_name)
+            gt_folder = os.path.join(
+                self.gt_data, 'habitat_sim_DAVIS/Annotations/480p', scene_name)
             pred_folder = os.path.join(self.pred_data, scene_name)
 
             for filename in os.listdir(gt_folder):
@@ -82,7 +100,7 @@ class MetricDataset(Dataset):
     def load_all(self):
         # load all data path stored in .txt file in gt_data
         txt_file = os.path.join(self.gt_data, 'video_name_mapping.txt')
-        data = np.genfromtxt(txt_file, delimiter='\t',dtype='str')
+        data = np.genfromtxt(txt_file, delimiter='\t', dtype='str')
         data_filtered = []
         for i in range(len(data)):
             data_filtered.append(data[i][0])
@@ -93,7 +111,7 @@ class MetricDataset(Dataset):
         # load all data path that has single class stored in .txt file in gt_data
         # meaning first 36 entries of 54
         txt_file = os.path.join(self.gt_data, 'video_name_mapping.txt')
-        data = np.genfromtxt(txt_file, delimiter='\t',dtype='str')
+        data = np.genfromtxt(txt_file, delimiter='\t', dtype='str')
         data_filtered = []
         for i in range(len(data)):
             if int(data[i][0]) % 54 < 36:
@@ -105,7 +123,7 @@ class MetricDataset(Dataset):
         # load all data path that has multi class stored in .txt file in gt_data
         # meaning last 18 entries of 54
         txt_file = os.path.join(self.gt_data, 'video_name_mapping.txt')
-        data = np.genfromtxt(txt_file, delimiter='\t',dtype='str')
+        data = np.genfromtxt(txt_file, delimiter='\t', dtype='str')
         data_filtered = []
         for i in range(len(data)):
             if int(data[i][0]) % 54 >= 36:
@@ -115,7 +133,7 @@ class MetricDataset(Dataset):
 
     def load_speed_1(self):
         txt_file = os.path.join(self.gt_data, 'video_name_mapping.txt')
-        data = np.genfromtxt(txt_file, delimiter='\t',dtype='str')
+        data = np.genfromtxt(txt_file, delimiter='\t', dtype='str')
         data_filtered = []
         for i in range(len(data)):
             if data[i][1].split('_')[-1] == '1':
@@ -125,7 +143,7 @@ class MetricDataset(Dataset):
 
     def load_speed_2(self):
         txt_file = os.path.join(self.gt_data, 'video_name_mapping.txt')
-        data = np.genfromtxt(txt_file, delimiter='\t',dtype='str')
+        data = np.genfromtxt(txt_file, delimiter='\t', dtype='str')
         data_filtered = []
         for i in range(len(data)):
             if data[i][1].split('_')[-1] == '2':
@@ -135,7 +153,7 @@ class MetricDataset(Dataset):
 
     def load_speed_3(self):
         txt_file = os.path.join(self.gt_data, 'video_name_mapping.txt')
-        data = np.genfromtxt(txt_file, delimiter='\t',dtype='str')
+        data = np.genfromtxt(txt_file, delimiter='\t', dtype='str')
         data_filtered = []
         for i in range(len(data)):
             if data[i][1].split('_')[-1] == '3':
@@ -145,7 +163,7 @@ class MetricDataset(Dataset):
 
     def load_human_class(self):
         txt_file = os.path.join(self.gt_data, 'video_name_mapping.txt')
-        data = np.genfromtxt(txt_file, delimiter='\t',dtype='str')
+        data = np.genfromtxt(txt_file, delimiter='\t', dtype='str')
         data_filtered = []
         for i in range(len(data)):
             if int(data[i][0]) % 54 < 36:
@@ -156,7 +174,7 @@ class MetricDataset(Dataset):
 
     def load_car_robot_class(self):
         txt_file = os.path.join(self.gt_data, 'video_name_mapping.txt')
-        data = np.genfromtxt(txt_file, delimiter='\t',dtype='str')
+        data = np.genfromtxt(txt_file, delimiter='\t', dtype='str')
         data_filtered = []
         for i in range(len(data)):
             if int(data[i][0]) % 54 < 36:
@@ -167,7 +185,7 @@ class MetricDataset(Dataset):
 
     def load_dog_cat_class(self):
         txt_file = os.path.join(self.gt_data, 'video_name_mapping.txt')
-        data = np.genfromtxt(txt_file, delimiter='\t',dtype='str')
+        data = np.genfromtxt(txt_file, delimiter='\t', dtype='str')
         data_filtered = []
         for i in range(len(data)):
             if int(data[i][0]) % 54 < 36:
@@ -176,14 +194,24 @@ class MetricDataset(Dataset):
 
         return data_filtered
 
+
 def main():
-    gt_data = "/home/gao/dev/project_remote/Habitat-sim-ext/randomwalk/output/habitat_sim_excl_static_30scenes_newPitch_originalModel"
-    # gt_data = "/home/gao/dev/project_remote/Habitat-sim-ext/randomwalk/output/habitat_sim_excl_static_30scenes_newPitch_originalModel"
-    pred_data = "/home/gao/dev/project_remote/Habitat-sim-ext/randomwalk/output/cis_anno/habitatDyn_dynamic_30scenes_new"
-    metric_data = MetricDataset(pred_data, gt_data, 8)
+    flag_names = {0: 'calculate All',
+                  1: 'calculate Single class',
+                  2: 'calculate Multi class',
+                  3: 'calculate Speed 1',
+                  4: 'calculate Speed 2',
+                  5: 'calculate Speed 3',
+                  6: 'calculate Human classes',
+                  7: 'calculate toy car/robot classes',
+                  8: 'calculate dog/cat classe'}
+    print(flag_names[args.flag])
+    gt_data = args.gt_data
+    pred_data = args.pred_data
+    flag = args.flag
+    metric_data = MetricDataset(pred_data, gt_data, flag)
     metric_dataloader = dataloader.DataLoader(metric_data, batch_size=256)
 
-    # TODO modify to true per category
     iou_meter = AverageValueMeter()
     precision_meter = AverageValueMeter()
     recall_meter = AverageValueMeter()
@@ -193,13 +221,16 @@ def main():
         gt.to(device)
 
         curr_iou = iou(pred, gt)
-        iou_meter.add(torch.sum(curr_iou).cpu().detach().numpy(), curr_iou.shape[0])
+        iou_meter.add(torch.sum(curr_iou).cpu(
+        ).detach().numpy(), curr_iou.shape[0])
 
         precision, recall, f1 = prf_metrics(pred, gt)
 
-        precision_meter.add(torch.sum(precision).cpu().detach().numpy(), precision.shape[0])
+        precision_meter.add(torch.sum(precision).cpu(
+        ).detach().numpy(), precision.shape[0])
 
-        recall_meter.add(torch.sum(recall).cpu().detach().numpy(), recall.shape[0])
+        recall_meter.add(torch.sum(recall).cpu(
+        ).detach().numpy(), recall.shape[0])
 
         # f1_meter.add(torch.sum(f1).cpu().detach().numpy(), f1.shape[0])
         # print(precision, recall, f1)
@@ -211,8 +242,16 @@ def main():
     print("final mean recall", recall_meter.mean)
     # print("final mean f1", f1_meter.mean)
 
-    # TODO: save .npy
-    # TODO: demo: example dataset + result in a md file, 介绍过程
+    # save logging
+    safe_mkdir('./detection_results')
+    logging.basicConfig(level=logging.DEBUG, filename="./detection_results/logfile", filemode="a+",
+                        format="%(asctime)-15s %(levelname)-8s %(message)s")
+    logging.info(f"final IOU mean {iou_meter.mean}")
+    logging.info(f"final mean precision {precision_meter.mean}")
+    logging.info(f"final mean recall {recall_meter.mean}")
+    # TODO: subdirect and exp name for each call or a speration line for each logging entry
+    # TODO: demo: example dataset + result in a md file
+
 
 if __name__ == "__main__":
     main()

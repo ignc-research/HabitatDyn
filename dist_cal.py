@@ -19,10 +19,15 @@ from utils.common import intersect2d, safe_mkdir, union2d
 from utils.create_training_data import (get_pixel_number_from_name,
                                         gt_obj_points)
 
-parser = argparse.ArgumentParser()
-# TODO
-parser.add_argument('--cfg', type=str, default='', help='config.yaml path')
-parser.add_argument('--exp_name', default=None, help='save results to dist_eval_results/exp_name')
+parser = argparse.ArgumentParser(
+    description='extract pose/location info of top-down view using dectection results')
+# TODO add config.yaml argument
+parser.add_argument('--exp_name', default=None,
+                    help='save results to dist_eval_results/exp_name')
+parser.add_argument('--habitatDyn_data', metavar='DIR',
+                    help='path to habitatDyn dataset', required=True)
+parser.add_argument('--mask_data', metavar='DIR',
+                    help='path to moving object detection output mask', required=True)
 args = parser.parse_args()
 
 # set up the parameters
@@ -70,38 +75,35 @@ z_matrix = -(map_size - np.arange(map_size) -
              1)[:, np.newaxis]*np.ones(map_size)[np.newaxis, :]*map_scale
 z_tensor = torch.tensor(z_matrix[np.newaxis, np.newaxis]).to(device)
 
-# TODO add argparser for experiment name
-# TODO add argparser or
-data_root = '/home/gao/dev/project_remote/Habitat-sim-ext/randomwalk/output/'
-img_dataset_list = ['habitat_sim_excl_static_30scenes']
-pred_list = ['dynamic']
+img_dataset_list = [args.habitatDyn_data]
+pred_list = [args.mask_data]
+
+if not args.exp_name:
+    dir_count = sum(os.path.isdir(os.path.join('./dist_eval_results/', i))
+                    for i in os.listdir(f'./dist_eval_results'))
+    exp_name = f"exp_{dir_count:03d}"
+else:
+    exp_name = args.exp_name
 
 for i in range(len(img_dataset_list)):
     # the habitatDyn sub dataset to be evluated on distance estimation
-    dataset_name = img_dataset_list[i]
-    pred_name = pred_list[i]
-    root_file = data_root + dataset_name + '/habitat_sim_DAVIS/Annotations/'
-    img_path = f'{data_root}{dataset_name}/habitat_sim_DAVIS/JPEGImages/480p/'
+    dataset_name = img_dataset_list[i].split("/")[-1]
+    data_root = img_dataset_list[i]
+    root_file = os.path.join(data_root, 'habitat_sim_DAVIS/Annotations/')
+    img_path = os.path.join(data_root, 'habitat_sim_DAVIS/JPEGImages/480p')
     clips_name = os.listdir(root_file + '480p')
     clips_name = sorted(clips_name)
-    frame_list = os.listdir(root_file + '/480p/0000')
+    frame_list = os.listdir(root_file + '480p/0000')
     frame_list = sorted(frame_list)
 
     for clip in tqdm(clips_name[start_clip:], desc="Clip", position=0):
-        meta_file_location = f'{data_root}{dataset_name}/stats_info/480p/{clip}/'
-        with open(meta_file_location+'semantic_id_to_name.json') as f:
+        meta_file_location = os.path.join(data_root, f'stats_info/480p/{clip}')
+        with open(os.path.join(meta_file_location, 'semantic_id_to_name.json')) as f:
             id_to_name = json.load(f)
 
         im_folder = ''
         focal = ''
         safe_mkdir('dist_eval_results')
-        if not args.exp_name:
-            dir_count = sum(os.path.isdir(os.path.join('./dist_eval_results/', i))
-                            for i in os.listdir(f'./dist_eval_results'))
-            print(dir_count)
-            exp_name = f"exp_{dir_count:03d}"
-        else:
-            exp_name = args.exp_name
 
         if USE_GT:
             record_save_path = f'dist_eval_results/{exp_name}/{dataset_name}/use_gt/{focal}{im_folder}/'
@@ -122,9 +124,9 @@ for i in range(len(img_dataset_list)):
         for frame in tqdm(frame_list, desc="Frame", position=1, leave=False):
             fram_num = int(frame.split('.')[0])
             pose_camera = np.load(
-                meta_file_location + 'camera_spec.npy', allow_pickle=True).tolist()
-            pose_ped = np.load(meta_file_location +
-                               'peds_infos.npy', allow_pickle=True).tolist()
+                os.path.join(meta_file_location, 'camera_spec.npy'), allow_pickle=True).tolist()
+            pose_ped = np.load(os.path.join(meta_file_location,
+                               'peds_infos.npy'), allow_pickle=True).tolist()
             location_camera = pose_camera['position']
             location_ped = pose_ped['positions']
             ground_truth = np.uint8(cv2.imread(
@@ -154,13 +156,15 @@ for i in range(len(img_dataset_list)):
                     valid_object_ids.append(object_id)
 
             if USE_GT:
-                mask_img = cv2.imread(
-                    root_file + '480p_colored/' + clip + '/' + frame)
-                mask_img_1d = np.sum(mask_img, axis=2)
-                mask = mask_img_1d > 0
+                # mask_img = cv2.imread(
+                #     root_file + '480p_colored/' + clip + '/' + frame)
+                # mask_img_1d = np.sum(mask_img, axis=2)
+                # mask = mask_img_1d > 0
+                raise(NotImplementedError)
             else:
-                mask_file_path = f'{data_root}3dc_anno/{pred_name}/'
-                mask_img = cv2.imread(mask_file_path + clip + '/' + frame[1:])
+                mask_file_path = args.mask_data
+                mask_img = cv2.imread(os.path.join(
+                    mask_file_path, f'{clip}/{frame[1:]}'))
                 mask = np.sum(mask_img, axis=2) > 0
 
             # if all the objects are not detected
@@ -184,13 +188,12 @@ for i in range(len(img_dataset_list)):
                         eval_record.append(record)
                 continue
 
-            # TODO: rename: this 'ego_map_gt' is the acturally 'ego_map_masked_by_model'
-            ego_map_gt = projection.get_observation(depth_array*mask)
+            ego_map_masked = projection.get_observation(depth_array*mask)
             # TODO: why?
             dilation_kernel = np.ones((5, 5))
-            dilation_mask = cv2.dilate(ego_map_gt[:, :, 0], dilation_kernel, iterations=2,
+            dilation_mask = cv2.dilate(ego_map_masked[:, :, 0], dilation_kernel, iterations=2,
                                        ).astype(np.float32)
-            points = np.array(np.where(ego_map_gt[:, :, 0] > 0.3)).T
+            points = np.array(np.where(ego_map_masked[:, :, 0] > 0.3)).T
 
             # TODO: why duplicate
             if points.shape[0] < 2:
@@ -268,7 +271,6 @@ for i in range(len(img_dataset_list)):
                         'cluster_o': o_cluster_points,
                         'imagination_score': imagine_scores,
                     }
-
 
             # calculate ground truth points for each label and stored in ground_truth_points dict
             for object_id in object_ids[1:]:
@@ -418,7 +420,7 @@ for i in range(len(img_dataset_list)):
                         [z_object_map_coor, x_object_map_coor])[np.newaxis])
                     r = max(distance_ct)
 
-                    # TODO: why only match a small amount
+                    # TODO: why only match a small amount, why gt is [0, 0]
                     if alpha < 0.1:
                         record = {
                             'clip': clip,
@@ -438,7 +440,6 @@ for i in range(len(img_dataset_list)):
                             'r': r,
                             'imagination_score': relativ_average_cors[lable]['imagination_score'],
                         }
-                        # print(record)
                         if len(valid_object_ids) > 0:
                             wrong_pixel += len(points_pre)
                             wrong_object += 1

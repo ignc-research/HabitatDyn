@@ -1,6 +1,7 @@
 dist_eval_results/
 dist_metric_results/
 __pycache__/
+logfile
 
 # General
 .DS_Store
