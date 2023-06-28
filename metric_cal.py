@@ -250,7 +250,7 @@ def main():
     logging.info(f"final mean precision {precision_meter.mean}")
     logging.info(f"final mean recall {recall_meter.mean}")
     # TODO: subdirect and exp name for each call or a speration line for each logging entry
-    # TODO: demo: example dataset + result in a md file
+    # TODO: demo: example dataset
 
 
 if __name__ == "__main__":

@@ -189,13 +189,11 @@ for i in range(len(img_dataset_list)):
                 continue
 
             ego_map_masked = projection.get_observation(depth_array*mask)
-            # TODO: why?
             dilation_kernel = np.ones((5, 5))
             dilation_mask = cv2.dilate(ego_map_masked[:, :, 0], dilation_kernel, iterations=2,
                                        ).astype(np.float32)
             points = np.array(np.where(ego_map_masked[:, :, 0] > 0.3)).T
 
-            # TODO: why duplicate
             if points.shape[0] < 2:
                 # if all the objects are not detected
                 if not np.all(gt_mask == False):
@@ -420,7 +418,6 @@ for i in range(len(img_dataset_list)):
                         [z_object_map_coor, x_object_map_coor])[np.newaxis])
                     r = max(distance_ct)
 
-                    # TODO: why only match a small amount, why gt is [0, 0]
                     if alpha < 0.1:
                         record = {
                             'clip': clip,
