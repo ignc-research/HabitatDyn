@@ -1,4 +1,3 @@
-# largly brrowed from [segmentation_models.pytorch](https://github.com/qubvel/segmentation_models.pytorch)
 import numpy as np
 
 
