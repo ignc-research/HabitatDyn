@@ -46,7 +46,7 @@ for record_name in file_list:
     if not record_name.endswith(".npy"):
         continue
     try:
-        record = np.load(data_path + record_name, allow_pickle=True)
+        record = np.load(os.path.join(data_path,record_name), allow_pickle=True)
     except:
         print(f".npy file {record_name} loading failed, continue")
         continue
