@@ -80,7 +80,7 @@ https://user-images.githubusercontent.com/83227264/230932486-90f0ff66-409c-4d55-
 ## Download
 
 A subset for 2 scenes with only dynamic moving objects can be downloaded from the following link
-* [subset for 2 scenes](https://tubcloud.tu-berlin.de/s/KikfymcmENWSdjk) - 108 videos (12 GB)
+* [subset for 2 scenes]([https://tubcloud.tu-berlin.de/s/KikfymcmENWSdjk](https://drive.google.com/drive/folders/1evlVaoB-EO3mNX15dgDNhluivg6KHyGr) - 108 videos (12 GB)
 
 Please email Zhengcheng Shen(zhengcheng.shen@tu-berlin.de) to obtain the link for downloading the whole dataset.
 
