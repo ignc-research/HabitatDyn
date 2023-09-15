@@ -50,6 +50,8 @@ Furthermore, the same settings for 3 randomly chosen instances from the 6 models
 
 In the entirety of the video recording, data pertaining to the physical properties such as the specifications of the camera, as well as the positional information of both the camera itself and any pedestrians or moving objects present within the recording are documented.
 
+All images, annotations, and image file mapping are in the subdirectory ‘HabitatDyn\_images’, and all physic stats like camera and moving objects’ location and poses are in the subdirectory ‘stats\_info’. The descriptive name mapping is saved in ‘video\_name\_mapping.txt’ under the main folder. The dataset provides the location of the robot and the relative location information of the objects in each frame.
+
 ## Annotations
 
 Overview of annotations format
